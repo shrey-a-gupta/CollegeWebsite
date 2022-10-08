@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Successfully login</title>
+
+	
+	<!-- include css file here-->
+    <link rel="stylesheet" href="css/style.css"/>
+   
+   <script type="text/javascript">
+		// var _gaq = _gaq || [];
+	// _gaq.push(['_setAccount', 'UA-43981329-1']);
+	// _gaq.push(['_trackPageview']);
+	// (function () {
+	// var ga = document.createElement('script');
+	// ga.type = 'text/javascript';
+	// ga.async = true;
+	// ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+	// var s = document.getElementsByTagName('script')[0];
+	// s.parentNode.insertBefore(ga, s);
+	// })();
+	//]]>
+	function logout() {
+    window.localStorage.removeItem('session');
+    window.location = "login.html"; //redirecting to other page
+	}
+
+	function addQuestion() {
+		let textField = document.getElementById('questionList');
+		let content = textField.value;
+		if(!content && content === ''){
+			alert('Add Some Text')
+			return
+		}
+		if(window.localStorage.getItem('QUESTIONS')){
+			let arr = JSON.parse(window.localStorage.getItem('QUESTIONS'))
+
+			let question = {
+				id:Math.random(),
+				ques:content
+			}
+			
+			arr.push(question)
+			window.localStorage.setItem('QUESTIONS',JSON.stringify(arr))
+		} else {
+			let arr = [];
+			let question = {
+				id:Math.random(),
+				ques:content
+			}
+			arr = [question]
+			window.localStorage.setItem('QUESTIONS',JSON.stringify(arr))
+		}
+		document.getElementById('questionList').value = "";
+	}
+
+	</script>
+
+	<style>
+		/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+.addQues{
+	display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+	</style>
+   
+  </head>
+<body>
+<center>You are Successfully Login. </br></br> <a class="back" href="index.html">Back</a></center>
+<div class="tab">
+	<button class="tablinks" onclick="openCity(event, 'London')">CR wall</button>
+	<button class="tablinks" onclick="openCity(event, 'Paris')">Add Questions</button>
+  </div>
+
+  <div class="addQues" id="addQues">
+	<label for="w3review">Your Question</label>
+	<textarea id="questionList" name="w3review" rows="4" cols="50">
+	At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
+	</textarea>
+  </div>
+
+<button onclick="addQuestion()">Submit</button>
+<button onclick="logout()">Logout</button>
+</body>
+</html>
